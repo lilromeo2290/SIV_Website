@@ -56,9 +56,10 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition-colors hover:bg-primary hover:text-white"
+                  className="flex h-9 items-center gap-2 rounded-lg bg-slate-800 px-3 text-slate-400 transition-colors hover:bg-primary hover:text-white"
                 >
                   <Facebook className="size-4" />
+                  <span className="text-xs font-semibold">Facebook</span>
                 </a>
               ))}
             </div>
