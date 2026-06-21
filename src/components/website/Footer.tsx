@@ -140,9 +140,17 @@ export function Footer() {
         <Separator className="my-8 bg-slate-700" />
 
         {/* Bottom Bar */}
-        <p className="text-center text-xs text-slate-500">
+        <p className="text-center text-sm font-bold text-slate-400">
           © 2026 SIV Engineering & Diagnostics Services LTD. All rights reserved.<br />
-          Powered & Developed by Clipe233 Engineers
+          Powered & Developed by{' '}
+          <a
+            href="https://clipe233eng.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-400 transition-colors hover:text-amber-300"
+          >
+            Clipe233 Engineers
+          </a>
         </p>
       </div>
     </footer>
