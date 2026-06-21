@@ -45,7 +45,7 @@ export function Footer() {
                 alt="SIV Engineering & Diagnostics Services LTD"
                 width={200}
                 height={50}
-                className="mb-4 h-12 w-auto object-contain brightness-0 invert"
+                className="mb-4 h-12 w-auto object-contain"
               />
             </div>
             <p className="mb-6 text-sm leading-relaxed text-slate-400">
