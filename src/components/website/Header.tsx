@@ -35,7 +35,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <a
             href="#home"
@@ -48,9 +48,9 @@ export function Header() {
             <Image
               src="/logo.png"
               alt="SIV Engineering & Diagnostics Services LTD"
-              width={140}
-              height={36}
-              className="h-9 w-auto object-contain"
+              width={220}
+              height={56}
+              className="h-14 w-auto object-contain"
               priority
             />
           </a>
@@ -95,9 +95,9 @@ export function Header() {
                     <Image
                       src="/logo.png"
                       alt="SIV Engineering"
-                      width={120}
-                      height={28}
-                      className="h-7 w-auto object-contain"
+                      width={180}
+                      height={44}
+                      className="h-10 w-auto object-contain"
                     />
                   </SheetTitle>
                 </SheetHeader>

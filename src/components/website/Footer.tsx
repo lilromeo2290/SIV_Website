@@ -43,9 +43,9 @@ export function Footer() {
               <Image
                 src="/logo.png"
                 alt="SIV Engineering & Diagnostics Services LTD"
-                width={140}
-                height={36}
-                className="mb-4 h-9 w-auto object-contain brightness-0 invert"
+                width={200}
+                height={50}
+                className="mb-4 h-12 w-auto object-contain brightness-0 invert"
               />
             </div>
             <p className="mb-6 text-sm leading-relaxed text-slate-400">
