@@ -1,6 +1,6 @@
 'use client'
 
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook } from 'lucide-react'
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 
@@ -22,9 +22,6 @@ const serviceLinks = [
 
 const socialLinks = [
   { label: 'Facebook', href: '#' },
-  { label: 'Twitter', href: '#' },
-  { label: 'Instagram', href: '#' },
-  { label: 'LinkedIn', href: '#' },
 ]
 
 export function Footer() {
@@ -61,9 +58,7 @@ export function Footer() {
                   aria-label={s.label}
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition-colors hover:bg-primary hover:text-white"
                 >
-                  <span className="text-xs font-bold">
-                    {s.label.charAt(0)}
-                  </span>
+                  <Facebook className="size-4" />
                 </a>
               ))}
             </div>
