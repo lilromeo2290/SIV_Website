@@ -20,8 +20,10 @@ export default function Home() {
         <Services />
         <WhyChooseUs />
         <Gallery />
-        <BookAppointment />
-        <QuoteForm />
+        <div className="grid gap-8 lg:grid-cols-2">
+          <BookAppointment />
+          <QuoteForm />
+        </div>
         <Contact />
       </main>
       <Footer />
