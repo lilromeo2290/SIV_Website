@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, CheckCircle2, MessageCircle, Mail } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,6 +24,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+
+const WHATSAPP_NUMBER = '233242266935'
+const BUSINESS_EMAIL = 'info@sivgh.com'
 
 const serviceOptions = [
   'Mechanical Work',
@@ -52,8 +62,37 @@ const quoteSchema = z.object({
 
 type QuoteFormValues = z.infer<typeof quoteSchema>
 
+function buildWhatsAppUrl(data: QuoteFormValues): string {
+  const text = `🔧 *SIV Engineering - New Quote Request*
+
+*Customer Details:*
+• Name: ${data.name}
+• Email: ${data.email}
+• Phone: ${data.phone}
+
+*Vehicle Information:*
+• Make: ${data.vehicleMake}
+• Model: ${data.vehicleModel}
+• Year: ${data.vehicleYear}
+
+*Service Needed:*
+${data.serviceType}${data.message ? `\n\n*Additional Details:*\n${data.message}` : ''}
+
+---
+Submitted via SIV Engineering Website`
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+}
+
+function buildMailtoUrl(data: QuoteFormValues): string {
+  const subject = `Quote Request - ${data.serviceType} - ${data.vehicleMake} ${data.vehicleYear}`
+  const body = `SIV Engineering & Diagnostics Services LTD - New Quote Request\n\nCUSTOMER DETAILS:\n- Name: ${data.name}\n- Email: ${data.email}\n- Phone: ${data.phone}\n\nVEHICLE INFORMATION:\n- Make: ${data.vehicleMake}\n- Model: ${data.vehicleModel}\n- Year: ${data.vehicleYear}\n\nSERVICE NEEDED:\n${data.serviceType}${data.message ? `\n\nADDITIONAL DETAILS:\n${data.message}` : ''}\n\n---\nSubmitted via SIV Engineering Website`
+  return `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
 export function QuoteForm() {
   const [loading, setLoading] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [submittedData, setSubmittedData] = useState<QuoteFormValues | null>(null)
   const { toast } = useToast()
 
   const form = useForm<QuoteFormValues>({
@@ -79,10 +118,12 @@ export function QuoteForm() {
         body: JSON.stringify(data),
       })
       if (res.ok) {
+        setSubmittedData(data)
+        setSubmitted(true)
         toast({
           title: 'Quote Request Submitted!',
           description:
-            'Thank you! We will review your request and get back to you within 24 hours.',
+            'Your request has been saved. Send it via WhatsApp or Email below.',
         })
         form.reset()
       } else {
@@ -101,6 +142,87 @@ export function QuoteForm() {
     } finally {
       setLoading(false)
     }
+  }
+
+  // Success state — show summary + WhatsApp & Email buttons
+  if (submitted && submittedData) {
+    const waUrl = buildWhatsAppUrl(submittedData)
+    const mailUrl = buildMailtoUrl(submittedData)
+
+    return (
+      <section id="quote" className="py-16 md:py-24 px-4 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-2xl">
+            <Card className="border-primary/20 shadow-lg">
+              <CardHeader className="text-center pb-2">
+                <div className="mx-auto mb-3 flex size-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                  <CheckCircle2 className="size-9" />
+                </div>
+                <CardTitle className="text-2xl text-green-700">
+                  Quote Request Received!
+                </CardTitle>
+                <CardDescription>
+                  Your request has been saved successfully. Choose how you&apos;d
+                  like to send the details to us:
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-2">
+                {/* Quote Summary */}
+                <div className="rounded-lg border bg-muted/50 p-4 text-sm space-y-1">
+                  <p className="font-semibold text-base">
+                    {submittedData.name}
+                  </p>
+                  <p className="text-muted-foreground">
+                    {submittedData.vehicleMake} {submittedData.vehicleModel}{' '}
+                    ({submittedData.vehicleYear})
+                  </p>
+                  <p className="text-muted-foreground">
+                    Service: <span className="font-medium text-foreground">{submittedData.serviceType}</span>
+                  </p>
+                  {submittedData.message && (
+                    <p className="text-muted-foreground italic">
+                      &quot;{submittedData.message}&quot;
+                    </p>
+                  )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Button
+                    size="lg"
+                    className="gap-2 bg-green-600 text-white hover:bg-green-700"
+                    onClick={() => window.open(waUrl, '_blank')}
+                  >
+                    <MessageCircle className="size-5" />
+                    Send via WhatsApp
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="gap-2"
+                    onClick={() => window.open(mailUrl, '_blank')}
+                  >
+                    <Mail className="size-5" />
+                    Send via Email
+                  </Button>
+                </div>
+
+                <Button
+                  variant="ghost"
+                  className="w-full text-muted-foreground"
+                  onClick={() => {
+                    setSubmitted(false)
+                    setSubmittedData(null)
+                  }}
+                >
+                  Submit Another Quote
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (
