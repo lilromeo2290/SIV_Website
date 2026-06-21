@@ -124,7 +124,7 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Phone className="size-4 shrink-0 text-amber-400" />
                 <span className="text-sm text-slate-400">
-                  +1 (555) 123-4567
+                  024 226 6935 / 020 671 6522
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
