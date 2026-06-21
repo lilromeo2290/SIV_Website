@@ -1,19 +1,29 @@
-import { ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 interface GalleryItem {
+  image: string
   category: string
   title: string
 }
 
 const galleryItems: GalleryItem[] = [
-  { category: 'Engine Repair', title: 'Complete Engine Overhaul — Toyota Camry' },
-  { category: 'AC Service', title: 'AC Compressor Replacement — Honda Civic' },
-  { category: 'Brake Work', title: 'Full Brake System Upgrade — Ford F-150' },
-  { category: 'Electrical', title: 'Wiring Harness Repair — BMW 3 Series' },
-  { category: 'Suspension', title: 'Suspension Overhaul — Mercedes C-Class' },
-  { category: 'Diagnostics', title: 'Advanced ECU Diagnostics — Audi A4' },
+  {
+    image: '/gallery/gallery-1.jpeg',
+    category: 'Engineering Work',
+    title: 'Professional Engineering & Diagnostics',
+  },
+  {
+    image: '/gallery/gallery-2.jpeg',
+    category: 'Mechanical Service',
+    title: 'Expert Mechanical Repairs & Maintenance',
+  },
+  {
+    image: '/gallery/gallery-3.jpeg',
+    category: 'Diagnostic Service',
+    title: 'Advanced Vehicle Diagnostics & Testing',
+  },
 ]
 
 export function Gallery() {
@@ -41,8 +51,13 @@ export function Gallery() {
               key={item.title}
               className="group cursor-default overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02]"
             >
-              <div className="flex h-52 items-center justify-center bg-muted">
-                <ImageIcon className="size-12 text-muted-foreground/30" />
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
               <CardContent className="pt-4 pb-6">
                 <Badge variant="secondary" className="mb-2">
