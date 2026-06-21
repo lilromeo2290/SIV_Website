@@ -7,7 +7,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: 'Address',
-    value: '123 Auto Street, Industrial Area',
+    value: 'Dowhenya Street, Community 25, Container Junction, Behind The Noble Restaurant',
   },
   {
     icon: Phone,
@@ -102,7 +102,7 @@ export function Contact() {
                 Google Maps Integration
               </p>
               <p className="text-xs text-muted-foreground/40">
-                123 Auto Street, Industrial Area
+                Dowhenya Street, Community 25, Container Junction, Behind The Noble Restaurant
               </p>
             </div>
           </div>

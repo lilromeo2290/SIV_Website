@@ -118,7 +118,7 @@ export function Footer() {
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-amber-400" />
                 <span className="text-sm text-slate-400">
-                  123 Auto Street, Industrial Area
+                  Dowhenya Street, Community 25, Container Junction, Behind The Noble Restaurant
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
