@@ -43,7 +43,7 @@ export function Header() {
               e.preventDefault()
               handleLinkClick('#home')
             }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-1"
           >
             <Image
               src="/logo.png"
@@ -52,6 +52,13 @@ export function Header() {
               height={56}
               className="h-14 w-auto object-contain"
               priority
+            />
+            <Image
+              src="/logo2.png"
+              alt="SIV Engineering & Diagnostics Services LTD"
+              width={220}
+              height={56}
+              className="h-14 w-auto object-contain"
             />
           </a>
 
