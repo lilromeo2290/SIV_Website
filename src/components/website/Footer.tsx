@@ -43,7 +43,7 @@ export function Footer() {
                 <Wrench className="size-5" />
               </div>
               <span className="text-lg font-bold">
-                AutoPro <span className="text-amber-400">Workshop</span>
+                SIV <span className="text-amber-400">Engineering</span>
               </span>
             </div>
             <p className="mb-6 text-sm leading-relaxed text-slate-400">
@@ -128,7 +128,7 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Mail className="size-4 shrink-0 text-amber-400" />
                 <span className="text-sm text-slate-400">
-                  info@autoproworkshop.com
+                  info@sivengineering.com
                 </span>
               </li>
             </ul>
@@ -139,7 +139,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <p className="text-center text-xs text-slate-500">
-          © 2024 AutoPro Workshop. All rights reserved.
+          © 2024 SIV Engineering & Diagnostics Services LTD. All rights reserved.
         </p>
       </div>
     </footer>

@@ -19,22 +19,23 @@ export function AboutUs() {
               About Us
             </p>
             <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-              About <span className="text-primary">AutoPro Workshop</span>
+              About <span className="text-primary">SIV Engineering</span>
             </h2>
             <div className="mb-6 space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Founded in 2009, AutoPro Workshop has grown from a small garage
-                into one of the region&apos;s most trusted automotive service
-                centers. With over 15 years of experience, we have earned the
-                trust of more than 10,000 vehicle owners through consistent
-                quality and reliable service.
+                Founded in 2009, SIV Engineering & Diagnostics Services LTD has
+                grown from a small garage into one of the region&apos;s most
+                trusted automotive service centers. With over 15 years of
+                experience, we have earned the trust of more than 10,000 vehicle
+                owners through consistent quality and reliable service.
               </p>
               <p>
                 Our commitment to excellence drives every aspect of our
                 operations. We invest in continuous training for our technicians
                 and upgrade our equipment regularly to stay at the forefront of
                 automotive technology. Every repair we perform is backed by our
-                comprehensive 12-month warranty.
+                comprehensive 12-month warranty, reflecting our dedication to
+                quality engineering and diagnostics.
               </p>
               <p>
                 Our team of 50+ ASE-certified technicians uses

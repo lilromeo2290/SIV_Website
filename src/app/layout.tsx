@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AutoPro Workshop — Expert Automotive Services & Repairs",
+  title: "SIV Engineering & Diagnostics Services LTD — Expert Automotive Services & Repairs",
   description:
-    "AutoPro Workshop offers comprehensive automotive repair and maintenance services including engine servicing, electrical work, air conditioning, suspension & braking system repairs, and fleet maintenance. Book your service appointment today.",
+    "SIV Engineering & Diagnostics Services LTD offers comprehensive automotive repair and maintenance services including engine servicing, electrical work, air conditioning, suspension & braking system repairs, and fleet maintenance. Book your service appointment today.",
   keywords: [
     "auto repair",
     "car service",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     icon: "/logo.svg",
   },
   openGraph: {
-    title: "AutoPro Workshop — Expert Automotive Services",
+    title: "SIV Engineering & Diagnostics Services LTD — Expert Automotive Services",
     description: "Comprehensive auto repair, engine servicing, and fleet maintenance solutions.",
     type: "website",
   },

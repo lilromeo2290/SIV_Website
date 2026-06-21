@@ -48,7 +48,7 @@ export function Header() {
               <Wrench className="size-5" />
             </div>
             <span className="text-lg font-bold tracking-tight">
-              AutoPro <span className="text-primary">Workshop</span>
+              SIV <span className="text-primary">Engineering</span>
             </span>
           </a>
 
@@ -92,7 +92,7 @@ export function Header() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                       <Wrench className="size-4" />
                     </div>
-                    AutoPro Workshop
+                    SIV Engineering
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-1 px-4 pt-4">
