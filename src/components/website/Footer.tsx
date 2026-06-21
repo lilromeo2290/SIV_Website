@@ -141,7 +141,8 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <p className="text-center text-xs text-slate-500">
-          © 2024 SIV Engineering & Diagnostics Services LTD. All rights reserved.
+          © 2026 SIV Engineering & Diagnostics Services LTD. All rights reserved.<br />
+          Powered & Developed by Clipe233 Engineers
         </p>
       </div>
     </footer>
