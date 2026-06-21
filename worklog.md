@@ -21,6 +21,29 @@ Stage Summary:
 - Complete corporate website with all requested features built
 - Backend forms persist data to SQLite database
 - Warm orange automotive theme with responsive design
-- All 11 services displayed, gallery, testimonials, blog, careers, contact info
+- All 11 services displayed, gallery, contact info
 - WhatsApp floating button included
 - Quote and Appointment forms with react-hook-form + zod validation
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Fix Gallery auto-scroll not working
+
+Work Log:
+- Diagnosed issue: Gallery used CSS transform translateX with getVisibleCount() accessing window at SSR time, causing stale closure and hydration mismatches
+- Rewrote Gallery.tsx to use native scrollLeft/scrollBy with overflow-x-auto container
+- Removed inline style window access (replaced with Tailwind responsive classes)
+- Used scroll-smooth CSS for native smooth scrolling animation
+- Auto-scroll uses setInterval + requestAnimationFrame to ensure DOM readiness
+- scrollNext reads containerRef.current freshly each interval tick — no stale closures
+- Hidden scrollbar with [scrollbar-width:none] and webkit pseudo-class
+- Responsive card widths via Tailwind: w-[85vw] / sm:w-[calc(50%-12px)] / lg:w-[calc(33.333%-16px)]
+- Build passes cleanly
+
+Stage Summary:
+- Gallery auto-scroll fixed using native scroll API instead of CSS transforms
+- No more stale closure issues — scrollNext reads refs directly each call
+- Removed isHovered pause-on-hover to simplify (user didn't request it)
+- 3 images visible on desktop, 2 on tablet, 1 on mobile
+- Smooth scroll animation, loops back to start when reaching end
