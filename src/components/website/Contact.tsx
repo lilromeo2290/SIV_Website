@@ -94,17 +94,19 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Map Placeholder */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex h-full min-h-64 w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-muted-foreground/20 bg-muted">
-              <MapPin className="mb-3 size-10 text-muted-foreground/40" />
-              <p className="text-sm font-medium text-muted-foreground/60">
-                Google Maps Integration
-              </p>
-              <p className="text-xs text-muted-foreground/40">
-                Dowhenya Street, Community 25, Container Junction, Behind The Noble Restaurant
-              </p>
-            </div>
+          {/* Google Maps */}
+          <div className="flex flex-col items-center justify-center overflow-hidden rounded-2xl">
+            <iframe
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Dowhenya+Street+Community+25+Container+Junction+Behind+The+Noble+Restaurant+Ghana"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '320px' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="SIV Engineering Location"
+              className="rounded-2xl"
+            />
           </div>
 
           {/* Quick Links */}
