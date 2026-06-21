@@ -4,7 +4,6 @@ import { AboutUs } from '@/components/website/AboutUs'
 import { Services } from '@/components/website/Services'
 import { WhyChooseUs } from '@/components/website/WhyChooseUs'
 import { Gallery } from '@/components/website/Gallery'
-import { Testimonials } from '@/components/website/Testimonials'
 import { Blog } from '@/components/website/Blog'
 import { Careers } from '@/components/website/Careers'
 import { BookAppointment } from '@/components/website/BookAppointment'
@@ -23,7 +22,6 @@ export default function Home() {
         <Services />
         <WhyChooseUs />
         <Gallery />
-        <Testimonials />
         <Blog />
         <Careers />
         <BookAppointment />
