@@ -1,6 +1,7 @@
 'use client'
 
-import { Wrench, Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin } from 'lucide-react'
+import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 
 const quickLinks = [
@@ -39,12 +40,13 @@ export function Footer() {
           {/* Company Info */}
           <div>
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Wrench className="size-5" />
-              </div>
-              <span className="text-lg font-bold">
-                SIV <span className="text-amber-400">Engineering</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="SIV Engineering & Diagnostics Services LTD"
+                width={140}
+                height={36}
+                className="mb-4 h-9 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="mb-6 text-sm leading-relaxed text-slate-400">
               Your trusted partner for all automotive repair and maintenance

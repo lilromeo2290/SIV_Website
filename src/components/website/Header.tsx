@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Wrench, Menu } from 'lucide-react'
+import { Menu } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -44,12 +45,14 @@ export function Header() {
             }}
             className="flex items-center gap-2"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Wrench className="size-5" />
-            </div>
-            <span className="text-lg font-bold tracking-tight">
-              SIV <span className="text-primary">Engineering</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="SIV Engineering & Diagnostics Services LTD"
+              width={140}
+              height={36}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -89,10 +92,13 @@ export function Header() {
               <SheetContent side="right" className="w-72">
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                      <Wrench className="size-4" />
-                    </div>
-                    SIV Engineering
+                    <Image
+                      src="/logo.png"
+                      alt="SIV Engineering"
+                      width={120}
+                      height={28}
+                      className="h-7 w-auto object-contain"
+                    />
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-1 px-4 pt-4">
