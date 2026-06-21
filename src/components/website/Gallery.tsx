@@ -156,7 +156,7 @@ export function Gallery() {
                 data-gallery-card
                 className="group snap-start shrink-0 w-[calc(100%-1.5rem)] sm:w-[calc(50%-1.5rem)] lg:w-[calc(25%-1.5rem)] cursor-default overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02]"
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-72 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -164,12 +164,6 @@ export function Gallery() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <CardContent className="pt-4 pb-6">
-                  <Badge variant="secondary" className="mb-2">
-                    {item.category}
-                  </Badge>
-                  <h3 className="text-sm font-semibold">{item.title}</h3>
-                </CardContent>
               </Card>
             ))}
           </div>
