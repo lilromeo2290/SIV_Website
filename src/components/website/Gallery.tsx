@@ -59,29 +59,31 @@ export function Gallery() {
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {galleryItems.map((item) => (
-            <Card
-              key={item.title}
-              className="group cursor-default overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02]"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <CardContent className="pt-4 pb-6">
-                <Badge variant="secondary" className="mb-2">
-                  {item.category}
-                </Badge>
-                <h3 className="text-sm font-semibold">{item.title}</h3>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Gallery Horizontal Scroll */}
+        <div className="relative">
+          <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scrollbar-thin" style={{ scrollbarWidth: 'thin' }}>
+            {galleryItems.map((item) => (
+              <Card
+                key={item.title}
+                className="group snap-start shrink-0 w-[calc(100%-1.5rem)] sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] cursor-default overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <CardContent className="pt-4 pb-6">
+                  <Badge variant="secondary" className="mb-2">
+                    {item.category}
+                  </Badge>
+                  <h3 className="text-sm font-semibold">{item.title}</h3>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>
