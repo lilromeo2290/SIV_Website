@@ -2,8 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -47,79 +46,51 @@ const galleryItems: GalleryItem[] = [
 ]
 
 export function Gallery() {
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isHovered, setIsHovered] = useState(false)
-  const currentIndexRef = useRef(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const scrollToIndex = useCallback((index: number) => {
-    const container = scrollRef.current
-    if (!container) return
-
-    const cards = container.querySelectorAll('[data-gallery-card]')
-    const card = cards[index % cards.length] as HTMLElement
-    if (card) {
-      container.scrollTo({
-        left: card.offsetLeft - container.offsetLeft,
-        behavior: 'smooth',
-      })
-      currentIndexRef.current = index % cards.length
-    }
+  const getVisibleCount = useCallback(() => {
+    if (typeof window === 'undefined') return 3
+    if (window.innerWidth < 640) return 1
+    if (window.innerWidth < 1024) return 2
+    return 3
   }, [])
 
-  const scrollNext = useCallback(() => {
-    const container = scrollRef.current
-    if (!container) return
+  const goNext = useCallback(() => {
+    const visible = getVisibleCount()
+    const maxIndex = galleryItems.length - visible
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+  }, [getVisibleCount])
 
-    const cards = container.querySelectorAll('[data-gallery-card]')
-    const card = cards[0] as HTMLElement
-    if (!card) return
-
-    const cardWidth = card.offsetWidth + 24 // card width + gap
-    const maxScroll = container.scrollWidth - container.clientWidth
-
-    if (container.scrollLeft + cardWidth >= maxScroll - 10) {
-      // Loop back to start
-      currentIndexRef.current = 0
-      container.scrollTo({ left: 0, behavior: 'smooth' })
-    } else {
-      container.scrollBy({ left: cardWidth, behavior: 'smooth' })
-      currentIndexRef.current = (currentIndexRef.current + 1) % cards.length
-    }
-  }, [])
-
-  const scrollPrev = useCallback(() => {
-    const container = scrollRef.current
-    if (!container) return
-
-    const cards = container.querySelectorAll('[data-gallery-card]')
-    const card = cards[0] as HTMLElement
-    if (!card) return
-
-    const cardWidth = card.offsetWidth + 24
-
-    if (container.scrollLeft <= 10) {
-      // Loop to end
-      const index = cards.length - 1
-      currentIndexRef.current = index
-      const lastCard = cards[index] as HTMLElement
-      container.scrollTo({
-        left: lastCard.offsetLeft - container.offsetLeft,
-        behavior: 'smooth',
-      })
-    } else {
-      container.scrollBy({ left: -cardWidth, behavior: 'smooth' })
-      currentIndexRef.current = Math.max(0, currentIndexRef.current - 1)
-    }
-  }, [])
+  const goPrev = useCallback(() => {
+    const visible = getVisibleCount()
+    const maxIndex = galleryItems.length - visible
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
+  }, [getVisibleCount])
 
   // Auto-scroll
   useEffect(() => {
-    if (!isPlaying || isHovered) return
+    if (isPlaying && !isHovered) {
+      timerRef.current = setInterval(goNext, 3000)
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [isPlaying, isHovered, goNext])
 
-    const interval = setInterval(scrollNext, 3000)
-    return () => clearInterval(interval)
-  }, [isPlaying, isHovered, scrollNext])
+  // Reset index on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const visible = getVisibleCount()
+      const maxIndex = galleryItems.length - visible
+      if (currentIndex > maxIndex) setCurrentIndex(Math.max(0, maxIndex))
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [currentIndex, getVisibleCount])
 
   return (
     <section id="gallery" className="bg-muted/50 py-16 md:py-24 px-4 md:px-8">
@@ -140,40 +111,45 @@ export function Gallery() {
 
         {/* Gallery Carousel */}
         <div
-          className="relative"
+          className="relative group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Scroll Container */}
-          <div
-            ref={scrollRef}
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scroll-smooth"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {galleryItems.map((item) => (
-              <Card
-                key={item.title}
-                data-gallery-card
-                className="group snap-start shrink-0 w-[calc(100%-1.5rem)] sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] cursor-default overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02]"
-              >
-                <div className="relative h-72 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-              </Card>
-            ))}
+          {/* Overflow Container */}
+          <div className="overflow-hidden rounded-2xl">
+            {/* Sliding Track */}
+            <div
+              ref={trackRef}
+              className="flex gap-6 transition-transform duration-700 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / getVisibleCount())}%)`,
+              }}
+            >
+              {galleryItems.map((item) => (
+                <Card
+                  key={item.title}
+                  className="shrink-0 overflow-hidden py-0 transition-transform duration-300 hover:scale-[1.02] sm:w-1/2 lg:w-1/3"
+                  style={{ width: typeof window !== 'undefined' && window.innerWidth >= 1024 ? '33.333%' : typeof window !== 'undefined' && window.innerWidth >= 640 ? '50%' : '100%' }}
+                >
+                  <div className="relative h-72 overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                </Card>
+              ))}
+            </div>
           </div>
 
           {/* Navigation Arrows */}
           <Button
             variant="outline"
             size="icon"
-            onClick={scrollPrev}
-            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/80 shadow-lg backdrop-blur-sm opacity-0 transition-opacity hover:bg-background group-hover:opacity-100"
+            onClick={goPrev}
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/80 shadow-lg backdrop-blur-sm opacity-0 transition-opacity duration-300 hover:bg-background group-hover:opacity-100"
             style={{ opacity: isHovered ? 1 : 0 }}
             aria-label="Previous"
           >
@@ -182,8 +158,8 @@ export function Gallery() {
           <Button
             variant="outline"
             size="icon"
-            onClick={scrollNext}
-            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/80 shadow-lg backdrop-blur-sm opacity-0 transition-opacity hover:bg-background group-hover:opacity-100"
+            onClick={goNext}
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/80 shadow-lg backdrop-blur-sm opacity-0 transition-opacity duration-300 hover:bg-background group-hover:opacity-100"
             style={{ opacity: isHovered ? 1 : 0 }}
             aria-label="Next"
           >
