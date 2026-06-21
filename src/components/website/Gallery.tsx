@@ -24,6 +24,21 @@ const galleryItems: GalleryItem[] = [
     category: 'Diagnostic Service',
     title: 'Advanced Vehicle Diagnostics & Testing',
   },
+  {
+    image: '/gallery/gallery-4.jpeg',
+    category: 'Engine Work',
+    title: 'Complete Engine Overhaul & Rebuild',
+  },
+  {
+    image: '/gallery/gallery-5.jpeg',
+    category: 'Electrical Service',
+    title: 'Electrical System Repair & Wiring',
+  },
+  {
+    image: '/gallery/gallery-6.jpeg',
+    category: 'Fleet Maintenance',
+    title: 'Fleet Vehicle Maintenance & Servicing',
+  },
 ]
 
 export function Gallery() {
