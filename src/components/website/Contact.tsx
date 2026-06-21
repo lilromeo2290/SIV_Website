@@ -27,14 +27,6 @@ const businessHours = [
   { day: 'Sunday', hours: 'Closed' },
 ]
 
-const quickLinks = [
-  'Mechanical Work',
-  'Electrical Work',
-  'Engine Servicing',
-  'Air Conditioning',
-  'Brake Repairs',
-]
-
 export function Contact() {
   return (
     <section id="contact" className="bg-muted/50 py-16 md:py-24 px-4 md:px-8">
@@ -53,8 +45,8 @@ export function Contact() {
           </p>
         </div>
 
-        {/* Three Column Layout */}
-        <div className="grid gap-8 lg:grid-cols-3">
+        {/* Two Column Layout */}
+        <div className="grid gap-8 lg:grid-cols-2">
           {/* Contact Info */}
           <div className="space-y-6">
             <h3 className="text-lg font-semibold">Contact Information</h3>
@@ -100,37 +92,13 @@ export function Contact() {
               src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Goodness+Filling+Station+Savannah+Junction+Community+25+Dowhenya+Street+Behind+The+Noble+Restaurant+Ghana"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '320px' }}
+              style={{ border: 0, minHeight: '400px' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="SIV Engineering Location"
               className="rounded-2xl"
             />
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Quick Service Links</h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#services"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      document
-                        .querySelector('#services')
-                        ?.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                    className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
