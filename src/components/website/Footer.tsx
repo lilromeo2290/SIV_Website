@@ -21,7 +21,7 @@ const serviceLinks = [
 ]
 
 const socialLinks = [
-  { label: 'Facebook', href: '#' },
+  { label: 'Facebook', href: 'https://web.facebook.com/profile.php?id=61590948551139' },
 ]
 
 export function Footer() {
@@ -55,6 +55,8 @@ export function Footer() {
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={s.label}
                   className="flex h-9 items-center gap-2 rounded-lg bg-slate-800 px-3 text-slate-400 transition-colors hover:bg-primary hover:text-white"
                 >
