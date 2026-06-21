@@ -52,3 +52,16 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Database
+/db/*.db
+
+# Uploads
+/upload/
+
+# Scripts (intermediate)
+/scripts/
+
+# Agent files
+.zscripts/
+worklog.md
