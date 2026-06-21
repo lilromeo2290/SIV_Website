@@ -17,7 +17,7 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@sivengineering.com',
+    value: 'info@sivgh.com',
   },
 ]
 

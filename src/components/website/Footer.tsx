@@ -130,7 +130,7 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Mail className="size-4 shrink-0 text-amber-400" />
                 <span className="text-sm text-slate-400">
-                  info@sivengineering.com
+                  info@sivgh.com
                 </span>
               </li>
             </ul>
