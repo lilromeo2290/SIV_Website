@@ -89,7 +89,7 @@ export function Contact() {
           {/* Google Maps */}
           <div className="flex flex-col items-center justify-center overflow-hidden rounded-2xl">
             <iframe
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Goodness+Filling+Station+Savannah+Junction+Community+25+Dowhenya+Street+Behind+The+Noble+Restaurant+Ghana"
+              src="https://maps.google.com/maps?q=SIV+Engineering+%26+Diagnostic+Services+LTD&t=&z=17&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '400px' }}
