@@ -20,6 +20,7 @@ import {
   Menu,
   Search,
   ChevronRight,
+  UserCog,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -45,6 +46,7 @@ const navItems = [
   { label: 'Birthday Wishes', href: '/crm/birthdays', icon: Cake },
   { label: 'Marketing Campaigns', href: '/crm/campaigns', icon: Megaphone },
   { label: 'Reports', href: '/crm/reports', icon: BarChart3 },
+  { label: 'User Management', href: '/crm/users', icon: UserCog },
   { label: 'Settings', href: '/crm/settings', icon: Settings },
 ];
 
