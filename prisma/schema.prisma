@@ -7,22 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model QuoteRequest {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  phone     String
-  vehicleMake  String
-  vehicleModel String
-  vehicleYear  String
-  service   String
-  message   String?
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// ========== Website Forms ==========
 
-model Appointment {
+model QuoteRequest {
   id           String   @id @default(cuid())
   name         String
   email        String
@@ -31,10 +18,179 @@ model Appointment {
   vehicleModel String
   vehicleYear  String
   service      String
-  preferredDate    String
-  preferredTime    String
   message      String?
   status       String   @default("pending")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Appointment {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  vehicleMake    String
+  vehicleModel   String
+  vehicleYear    String
+  service        String
+  preferredDate  String
+  preferredTime  String
+  message        String?
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ========== CRM Modules ==========
+
+model Client {
+  id              String   @id @default(cuid())
+  clientId        String   @unique
+  clientType      String   @default("Individual")
+  fullName        String
+  companyName     String?
+  contactPerson   String?
+  phone           String
+  whatsappNumber  String?
+  email           String?
+  physicalAddress String?
+  gpsCoordinates  String?
+  industryCategory String?
+  dateOfBirth     String?
+  anniversaryDate String?
+  registrationDate DateTime @default(now())
+  notes           String?
+  status          String   @default("active")
+  group           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  serviceRequests ServiceRequest[]
+  quotations      Quotation[]
+  invoices        Invoice[]
+}
+
+model ServiceRequest {
+  id                  String   @id @default(cuid())
+  serviceNumber       String   @unique
+  clientId            String
+  client              Client   @relation(fields: [clientId], references: [id])
+  equipmentName       String
+  equipmentType       String?
+  serialNumber        String?
+  problemDescription  String
+  assignedEngineer    String?
+  dateReceived        DateTime @default(now())
+  status              String   @default("pending")
+  diagnosticFindings  String?
+  recommendations      String?
+  completionDate      DateTime?
+  reportAttachment    String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  type        String
+  recipient   String
+  recipientGroup String?
+  subject     String?
+  content     String
+  status      String   @default("sent")
+  scheduledAt DateTime?
+  sentAt      DateTime @default(now())
+  deliveredAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model MessageTemplate {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  subject   String?
+  content   String
+  placeholders String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Campaign {
+  id             String   @id @default(cuid())
+  name           String
+  type           String
+  targetGroup    String?
+  status         String   @default("draft")
+  content        String
+  scheduledAt    DateTime?
+  sentCount      Int      @default(0)
+  deliveredCount Int      @default(0)
+  failedCount    Int      @default(0)
+  responseCount  Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Quotation {
+  id            String   @id @default(cuid())
+  quoteNumber   String   @unique
+  clientId      String
+  client        Client   @relation(fields: [clientId], references: [id])
+  items         String
+  totalAmount   Float
+  status        String   @default("draft")
+  approvedBy    String?
+  approvedAt    DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  invoice       Invoice?
+}
+
+model Invoice {
+  id             String   @id @default(cuid())
+  invoiceNumber  String   @unique
+  quotationId    String?   @unique
+  quotation      Quotation? @relation(fields: [quotationId], references: [id])
+  clientId       String
+  client         Client   @relation(fields: [clientId], references: [id])
+  items          String
+  totalAmount    Float
+  status         String   @default("unpaid")
+  paidAmount     Float    @default(0)
+  paymentDate    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model FollowUp {
+  id              String   @id @default(cuid())
+  type            String
+  clientId        String?
+  description     String
+  dueDate         DateTime?
+  status          String   @default("pending")
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  password      String
+  role          String   @default("staff")
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
