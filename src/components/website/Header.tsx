@@ -64,7 +64,7 @@ export function Header() {
                 className="h-14 w-auto object-contain drop-shadow-sm"
               />
             </div>
-            <p className="ml-20 sm:ml-28 text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
+            <p className="ml-24 sm:ml-36 text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
               Engineering Excellence, Diagnostic Precision
             </p>
           </a>
