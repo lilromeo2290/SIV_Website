@@ -26,6 +26,8 @@ export function Header() {
 
   const handleLinkClick = (href: string) => {
     setOpen(false)
+    // If it's a page route (not an anchor), let default navigation happen
+    if (!href.startsWith('#')) return
     const el = document.querySelector(href)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
@@ -74,7 +76,9 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => {
-                  e.preventDefault()
+                  if (link.href.startsWith('#')) {
+                    e.preventDefault()
+                  }
                   handleLinkClick(link.href)
                 }}
                 className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -119,7 +123,9 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={(e) => {
-                        e.preventDefault()
+                        if (link.href.startsWith('#')) {
+                          e.preventDefault()
+                        }
                         handleLinkClick(link.href)
                       }}
                       className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
