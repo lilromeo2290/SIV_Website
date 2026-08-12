@@ -86,8 +86,8 @@ export default function AddUserPage() {
     e.preventDefault();
     setError('');
 
-    if (!form.name || !form.email || !form.password) {
-      setError('Name, email, and password are required');
+    if (!form.name || !form.password) {
+      setError('Name and password are required');
       return;
     }
     if (selectedRoles.length === 0) {
@@ -180,7 +180,7 @@ export default function AddUserPage() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">Email Address</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <Input
@@ -190,7 +190,6 @@ export default function AddUserPage() {
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
                         className="pl-9"
-                        required
                       />
                     </div>
                   </div>

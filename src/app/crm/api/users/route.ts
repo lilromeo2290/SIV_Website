@@ -63,25 +63,29 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, email, phone, password, role, department, modules, status } = body;
 
-    if (!name || !email || !password) {
+    if (!name || !password) {
       return NextResponse.json(
-        { error: 'Name, email, and password are required' },
+        { error: 'Name and password are required' },
         { status: 400 }
       );
     }
 
-    const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) {
-      return NextResponse.json(
-        { error: 'A user with this email already exists' },
-        { status: 409 }
-      );
+    const emailToStore = email?.trim() || null;
+
+    if (emailToStore) {
+      const existing = await prisma.user.findUnique({ where: { email: emailToStore } });
+      if (existing) {
+        return NextResponse.json(
+          { error: 'A user with this email already exists' },
+          { status: 409 }
+        );
+      }
     }
 
     const user = await prisma.user.create({
       data: {
         name,
-        email,
+        email: emailToStore,
         phone: phone || null,
         password,
         role: role || 'staff',
