@@ -8,7 +8,7 @@ module.exports = {
       exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
-        PORT: 3050,
+        PORT: 3080,
         HOSTNAME: '0.0.0.0',
         DATABASE_URL: 'file:/home/sivcrm/db/crm.db',
       },

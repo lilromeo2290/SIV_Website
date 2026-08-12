@@ -6,7 +6,7 @@
 APP_DIR="/home/sivcrm/app"
 DB_DIR="/home/sivcrm/db"
 LOG_DIR="/home/sivcrm/logs"
-PORT=3050
+PORT=3080
 
 echo "========================================="
 echo "  SIV Engineering CRM - Deployment"
