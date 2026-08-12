@@ -51,17 +51,17 @@ export function Header() {
               <Image
                 src="/logo.png"
                 alt="SIV Engineering & Diagnostics Services LTD"
-                width={220}
-                height={56}
-                className="h-12 w-auto object-contain"
+                width={260}
+                height={68}
+                className="h-14 w-auto object-contain drop-shadow-sm"
                 priority
               />
               <Image
                 src="/logo2.png"
                 alt="SIV Engineering & Diagnostics Services LTD"
-                width={220}
-                height={56}
-                className="h-12 w-auto object-contain"
+                width={260}
+                height={68}
+                className="h-14 w-auto object-contain drop-shadow-sm"
               />
             </div>
             <p className="ml-20 sm:ml-28 text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
@@ -113,7 +113,7 @@ export function Header() {
                       alt="SIV Engineering"
                       width={180}
                       height={44}
-                      className="h-10 w-auto object-contain"
+                      className="h-10 w-auto object-contain drop-shadow-sm"
                     />
                   </SheetTitle>
                 </SheetHeader>
