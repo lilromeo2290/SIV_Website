@@ -142,7 +142,7 @@ export function Footer() {
           © 2026 SIV Engineering & Diagnostics Services LTD. All rights reserved.<br />
           Powered & Developed by{' '}
           <a
-            href="https://clipe233eng.net/"
+            href="https://clipeconsult.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-amber-400 transition-colors hover:text-amber-300"
