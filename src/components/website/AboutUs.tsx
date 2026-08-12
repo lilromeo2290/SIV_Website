@@ -1,4 +1,5 @@
-import { Building2, Award, ShieldCheck, BadgeDollarSign, CheckCircle2 } from 'lucide-react'
+import { Award, ShieldCheck, BadgeDollarSign, CheckCircle2 } from 'lucide-react'
+import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 
 const keyFacts = [
@@ -47,12 +48,15 @@ export function AboutUs() {
             </div>
           </div>
 
-          {/* Right Placeholder Image */}
+          {/* Workshop Image */}
           <div className="flex items-center justify-center">
-            <div className="flex h-72 w-full max-w-md flex-col items-center justify-center rounded-2xl bg-muted sm:h-96">
-              <Building2 className="mb-4 size-16 text-muted-foreground/40" />
-              <p className="text-sm text-muted-foreground/60">Workshop Image</p>
-            </div>
+            <Image
+              src="/workshop.jpg"
+              alt="SIV Engineering Workshop"
+              width={600}
+              height={400}
+              className="h-72 w-full max-w-md rounded-2xl object-cover shadow-lg sm:h-96"
+            />
           </div>
         </div>
 
