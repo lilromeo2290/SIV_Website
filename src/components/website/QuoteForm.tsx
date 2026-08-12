@@ -32,7 +32,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-const WHATSAPP_NUMBER = '233242266935'
+const WHATSAPP_NUMBER = '233206716522'
 const BUSINESS_EMAIL = 'info@sivgh.com'
 
 const serviceOptions = [
