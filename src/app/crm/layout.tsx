@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   Users,
@@ -21,6 +21,7 @@ import {
   Search,
   ChevronRight,
   UserCog,
+  LogOut,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -33,6 +34,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { getInitials } from '@/lib/helpers';
 
 const navItems = [
   { label: 'Dashboard', href: '/crm', icon: LayoutDashboard },
@@ -131,6 +133,36 @@ export default function CRMLayout({
   children: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userName, setUserName] = useState('User');
+  const [userInitials, setUserInitials] = useState('U');
+
+  // Get user info from cookie on mount
+  useEffect(() => {
+    const getUserName = async () => {
+      try {
+        const res = await fetch('/crm/api/auth/me');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.name) {
+            setUserName(data.name);
+            setUserInitials(getInitials(data.name));
+          }
+        }
+      } catch {
+        // ignore
+      }
+    };
+    getUserName();
+  });
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/crm/api/auth', { method: 'DELETE' });
+      window.location.href = '/crm/login';
+    } catch {
+      window.location.href = '/crm/login';
+    }
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-slate-50">
@@ -171,14 +203,24 @@ export default function CRMLayout({
             />
           </div>
 
-          {/* User Avatar */}
+          {/* User Info & Logout */}
           <div className="ml-auto flex items-center gap-3">
+            <span className="hidden text-sm font-medium text-slate-600 sm:block">{userName}</span>
             <Avatar className="h-8 w-8">
               <AvatarImage src="" alt="User avatar" />
               <AvatarFallback className="bg-blue-100 text-sm font-semibold text-blue-700">
-                AD
+                {userInitials}
               </AvatarFallback>
             </Avatar>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-slate-400 hover:text-red-600"
+              onClick={handleLogout}
+              title="Sign Out"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
         </header>
 
