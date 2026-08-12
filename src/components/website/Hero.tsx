@@ -1,7 +1,17 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Wrench, Zap, Clock, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+
+const heroImages = [
+  '/gallery/gallery-1.jpeg',
+  '/gallery/gallery-2.jpeg',
+  '/gallery/gallery-3.jpeg',
+  '/gallery/gallery-4.jpeg',
+  '/gallery/gallery-5.jpeg',
+  '/gallery/gallery-6.jpeg',
+]
 
 const stats = [
   { icon: Clock, value: '15+', label: 'Years Experience' },
@@ -11,6 +21,15 @@ const stats = [
 ]
 
 export function Hero() {
+  const [currentImage, setCurrentImage] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   const handleScroll = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -18,12 +37,22 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900 px-4 py-16 md:py-24"
+      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 py-16 md:py-24"
     >
-      {/* Decorative background elements */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-amber-700/20 blur-3xl" />
+      {/* Background Image Slideshow */}
+      <div className="pointer-events-none absolute inset-0">
+        {heroImages.map((img, i) => (
+          <div
+            key={img}
+            className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+            style={{
+              backgroundImage: `url(${img})`,
+              opacity: i === currentImage ? 1 : 0,
+            }}
+          />
+        ))}
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-900/80 to-amber-900/75" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
