@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 // GET - Single user
 export async function GET(
@@ -10,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: { id },
       select: {
         id: true,
@@ -49,13 +47,13 @@ export async function PUT(
     const body = await request.json();
     const { name, email, phone, password, role, department, modules, status } = body;
 
-    const existing = await prisma.user.findUnique({ where: { id } });
+    const existing = await db.user.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     if (email && email !== existing.email) {
-      const emailCheck = await prisma.user.findUnique({ where: { email } });
+      const emailCheck = await db.user.findUnique({ where: { email } });
       if (emailCheck) {
         return NextResponse.json(
           { error: 'A user with this email already exists' },
@@ -64,7 +62,7 @@ export async function PUT(
       }
     }
 
-    const user = await prisma.user.update({
+    const user = await db.user.update({
       where: { id },
       data: {
         ...(name && { name }),
@@ -92,12 +90,12 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const existing = await prisma.user.findUnique({ where: { id } });
+    const existing = await db.user.findUnique({ where: { id } });
     if (!existing) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    await prisma.user.delete({ where: { id } });
+    await db.user.delete({ where: { id } });
 
     return NextResponse.json({ message: 'User deleted successfully' });
   } catch (error) {

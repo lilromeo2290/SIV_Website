@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 // GET - List all users
 export async function GET(request: NextRequest) {
@@ -27,7 +25,7 @@ export async function GET(request: NextRequest) {
     if (status) where.status = status;
 
     const [users, total] = await Promise.all([
-      prisma.user.findMany({
+      db.user.findMany({
         where,
         orderBy: { createdAt: 'desc' },
         skip: (page - 1) * limit,
@@ -47,7 +45,7 @@ export async function GET(request: NextRequest) {
           updatedAt: true,
         },
       }),
-      prisma.user.count({ where }),
+      db.user.count({ where }),
     ]);
 
     return NextResponse.json({ users, total, page, limit });
@@ -73,7 +71,7 @@ export async function POST(request: NextRequest) {
     const emailToStore = email?.trim() || null;
 
     if (emailToStore) {
-      const existing = await prisma.user.findUnique({ where: { email: emailToStore } });
+      const existing = await db.user.findUnique({ where: { email: emailToStore } });
       if (existing) {
         return NextResponse.json(
           { error: 'A user with this email already exists' },
@@ -82,7 +80,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const user = await prisma.user.create({
+    const user = await db.user.create({
       data: {
         name,
         email: emailToStore,
