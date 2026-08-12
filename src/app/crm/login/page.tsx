@@ -154,12 +154,13 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center">
-              <a
-                href="/"
+              <button
+                type="button"
+                onClick={() => { window.location.href = '/'; }}
                 className="text-sm text-slate-400 transition-colors hover:text-blue-400"
               >
                 &larr; Back to Website
-              </a>
+              </button>
             </div>
           </CardContent>
         </Card>

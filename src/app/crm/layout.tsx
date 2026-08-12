@@ -115,13 +115,17 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
       {/* Back to Website */}
       <div className="border-t border-slate-700/50 px-3 py-4">
-        <Link
+        <a
           href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = '/';
+          }}
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-slate-700 hover:text-white"
         >
           <ArrowLeft className="h-[18px] w-[18px] shrink-0" />
           <span>Back to Website</span>
-        </Link>
+        </a>
       </div>
     </div>
   );
