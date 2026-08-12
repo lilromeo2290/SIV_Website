@@ -52,7 +52,7 @@ export function Hero() {
           />
         ))}
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-900/80 to-amber-900/75" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-slate-900/40 to-amber-900/30" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
@@ -63,13 +63,13 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+        <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl">
           Expert Auto Repair &{' '}
           <span className="text-amber-400">Maintenance Services</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
+        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/90 drop-shadow-md md:text-xl">
           Trusted by thousands of vehicle owners for over 15 years.
           Professional mechanical work, electrical diagnostics, engine
           servicing, and more.
