@@ -42,7 +42,7 @@ export function Header() {
               e.preventDefault()
               handleLinkClick('#home')
             }}
-            className="flex flex-col items-start"
+            className="flex flex-col"
           >
             <div className="flex items-center gap-2">
               <Image
@@ -61,7 +61,7 @@ export function Header() {
                 className="h-14 w-auto object-contain"
               />
             </div>
-            <span className="hidden lg:block text-sm font-semibold italic tracking-wide text-primary">
+            <span className="mt-[-4px] hidden lg:block text-sm font-semibold italic tracking-wide text-primary">
               Engineering Excellence, Diagnostic Precision
             </span>
           </a>
