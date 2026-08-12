@@ -18,6 +18,7 @@ import {
   Building,
   Calendar,
   Filter,
+  LayoutGrid,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -47,6 +48,7 @@ interface CRMUser {
   phone: string | null;
   role: string;
   department: string | null;
+  modules: string | null;
   status: string;
   lastLogin: string | null;
   createdAt: string;
@@ -324,7 +326,7 @@ export default function UsersPage() {
                   <TableRow className="border-slate-200 bg-slate-50">
                     <TableHead className="font-semibold text-slate-700">User</TableHead>
                     <TableHead className="font-semibold text-slate-700">Role</TableHead>
-                    <TableHead className="font-semibold text-slate-700">Department</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Modules</TableHead>
                     <TableHead className="font-semibold text-slate-700">Status</TableHead>
                     <TableHead className="font-semibold text-slate-700">Last Login</TableHead>
                     <TableHead className="font-semibold text-slate-700">Created</TableHead>
@@ -370,21 +372,21 @@ export default function UsersPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {user.department ? (
+                        {user.modules ? (
                           <div className="flex flex-wrap gap-1">
-                            {user.department.split(',').map((d, i) => (
+                            {user.modules.split(',').map((m, i) => (
                               <Badge
                                 key={i}
-                                className="bg-slate-100 text-slate-700"
+                                className="bg-emerald-100 text-emerald-800"
                                 variant="secondary"
                               >
-                                <Building className="mr-1 h-3 w-3" />
-                                {d.trim()}
+                                <LayoutGrid className="mr-1 h-3 w-3" />
+                                {m.trim()}
                               </Badge>
                             ))}
                           </div>
                         ) : (
-                          <span className="text-sm text-slate-400">—</span>
+                          <span className="text-sm text-slate-400">All</span>
                         )}
                       </TableCell>
                       <TableCell>

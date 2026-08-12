@@ -19,6 +19,7 @@ export async function GET(
         phone: true,
         role: true,
         department: true,
+        modules: true,
         status: true,
         lastLogin: true,
         avatar: true,
@@ -46,7 +47,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, email, phone, password, role, department, status } = body;
+    const { name, email, phone, password, role, department, modules, status } = body;
 
     const existing = await prisma.user.findUnique({ where: { id } });
     if (!existing) {
@@ -72,6 +73,7 @@ export async function PUT(
         ...(password && { password }),
         ...(role && { role }),
         ...(department !== undefined && { department: department || null }),
+        ...(modules !== undefined && { modules: modules || null }),
         ...(status && { status }),
       },
     });

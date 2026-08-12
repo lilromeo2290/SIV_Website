@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
           phone: true,
           role: true,
           department: true,
+          modules: true,
           status: true,
           lastLogin: true,
           avatar: true,
@@ -60,7 +61,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, password, role, department, status } = body;
+    const { name, email, phone, password, role, department, modules, status } = body;
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -85,6 +86,7 @@ export async function POST(request: NextRequest) {
         password,
         role: role || 'staff',
         department: department || null,
+        modules: modules || null,
         status: status || 'active',
       },
     });

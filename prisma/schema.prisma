@@ -192,6 +192,7 @@ model User {
   password      String
   role          String   @default("staff")
   department    String?
+  modules       String?
   status        String   @default("active")
   lastLogin     DateTime?
   avatar        String?

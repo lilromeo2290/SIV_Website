@@ -16,6 +16,7 @@ import {
   Shield,
   User,
   Check,
+  LayoutGrid,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,15 +34,19 @@ const roles = [
   { value: 'Staff', label: 'Staff', color: 'bg-slate-100 text-slate-700', desc: 'Basic access' },
 ];
 
-const departments = [
-  'Engineering',
-  'Diagnostics',
-  'Customer Service',
-  'Finance',
-  'Marketing',
-  'Management',
-  'IT',
-  'Operations',
+const sidebarModules = [
+  { value: 'Dashboard', label: 'Dashboard', icon: 'LayoutDashboard', desc: 'Overview and key metrics' },
+  { value: 'Client Management', label: 'Client Management', icon: 'Users', desc: 'Manage clients and customer data' },
+  { value: 'Service Requests', label: 'Service Requests', icon: 'Wrench', desc: 'Handle equipment service requests' },
+  { value: 'Diagnostics', label: 'Diagnostics', icon: 'Activity', desc: 'View and manage diagnostic reports' },
+  { value: 'Contracts', label: 'Contracts', icon: 'FileText', desc: 'Manage service contracts' },
+  { value: 'Quotations', label: 'Quotations', icon: 'Calculator', desc: 'Create and manage quotations' },
+  { value: 'Invoices', label: 'Invoices', icon: 'Receipt', desc: 'Billing and invoice management' },
+  { value: 'Messaging Center', label: 'Messaging Center', icon: 'MessageSquare', desc: 'SMS, email, and WhatsApp messaging' },
+  { value: 'Birthday Wishes', label: 'Birthday Wishes', icon: 'Cake', desc: 'Automated birthday greetings' },
+  { value: 'Marketing Campaigns', label: 'Marketing Campaigns', icon: 'Megaphone', desc: 'Create and track marketing campaigns' },
+  { value: 'Reports', label: 'Reports', icon: 'BarChart3', desc: 'Analytics and business reports' },
+  { value: 'Settings', label: 'Settings', icon: 'Settings', desc: 'System configuration and preferences' },
 ];
 
 export default function AddUserPage() {
@@ -49,11 +54,12 @@ export default function AddUserPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  const [selectedDepts, setSelectedDepts] = useState<string[]>([]);
+  const [selectedModules, setSelectedModules] = useState<string[]>([]);
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
+    department: '',
     password: '',
     confirmPassword: '',
     status: 'active',
@@ -68,11 +74,11 @@ export default function AddUserPage() {
     );
   };
 
-  const toggleDept = (dept: string) => {
-    setSelectedDepts((prev) =>
-      prev.includes(dept)
-        ? prev.filter((d) => d !== dept)
-        : [...prev, dept]
+  const toggleModule = (moduleValue: string) => {
+    setSelectedModules((prev) =>
+      prev.includes(moduleValue)
+        ? prev.filter((m) => m !== moduleValue)
+        : [...prev, moduleValue]
     );
   };
 
@@ -108,7 +114,8 @@ export default function AddUserPage() {
           phone: form.phone,
           password: form.password,
           role: selectedRoles.join(','),
-          department: selectedDepts.join(','),
+          department: form.department,
+          modules: selectedModules.join(','),
           status: form.status,
         }),
       });
@@ -204,36 +211,21 @@ export default function AddUserPage() {
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label>Departments</Label>
-                    <div className="grid grid-cols-2 gap-2 rounded-lg border border-slate-200 p-3">
-                      {departments.map((d) => {
-                        const isChecked = selectedDepts.includes(d);
-                        return (
-                          <label
-                            key={d}
-                            className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-slate-50"
-                          >
-                            <div
-                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border-2 transition-colors ${
-                                isChecked
-                                  ? 'border-blue-600 bg-blue-600'
-                                  : 'border-slate-300 bg-white'
-                              }`}
-                            >
-                              {isChecked && <Check className="h-2.5 w-2.5 text-white" />}
-                            </div>
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => toggleDept(d)}
-                              className="sr-only"
-                            />
-                            <span className={isChecked ? 'font-medium text-slate-800' : 'text-slate-600'}>
-                              {d}
-                            </span>
-                          </label>
-                        );
-                      })}
-                    </div>
+                    <select
+                      value={form.department || ''}
+                      onChange={(e) => setForm({ ...form, department: e.target.value })}
+                      className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    >
+                      <option value="">Select department</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Diagnostics">Diagnostics</option>
+                      <option value="Customer Service">Customer Service</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Management">Management</option>
+                      <option value="IT">IT</option>
+                      <option value="Operations">Operations</option>
+                    </select>
                   </div>
                 </div>
 
@@ -345,6 +337,59 @@ export default function AddUserPage() {
                         {role.label}
                       </Badge>
                       <p className="mt-1 text-xs text-slate-500">{role.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <LayoutGrid className="h-5 w-5 text-blue-600" />
+                Module Access
+              </CardTitle>
+              <p className="text-xs text-slate-500">
+                Assign one or more sidebar modules this user can access
+              </p>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-2">
+              {selectedModules.length > 0 && (
+                <div className="mb-2 flex flex-wrap gap-1.5 rounded-lg bg-emerald-50 p-2">
+                  <span className="text-xs font-medium text-emerald-700">Assigned ({selectedModules.length}):</span>
+                  {selectedModules.map((m) => (
+                    <Badge key={m} className="bg-emerald-100 text-emerald-800" variant="secondary">
+                      {m}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+              {sidebarModules.map((mod) => {
+                const isSelected = selectedModules.includes(mod.value);
+                return (
+                  <button
+                    key={mod.value}
+                    type="button"
+                    onClick={() => toggleModule(mod.value)}
+                    className={`flex items-start gap-3 rounded-lg border p-3 text-left transition-all ${
+                      isSelected
+                        ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500'
+                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+                        isSelected
+                          ? 'border-emerald-600 bg-emerald-600'
+                          : 'border-slate-300 bg-white'
+                      }`}
+                    >
+                      {isSelected && <Check className="h-3 w-3 text-white" />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-slate-800">{mod.label}</p>
+                      <p className="mt-0.5 text-xs text-slate-500">{mod.desc}</p>
                     </div>
                   </button>
                 );
