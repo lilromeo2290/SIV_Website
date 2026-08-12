@@ -81,7 +81,7 @@ export function Header() {
                   }
                   handleLinkClick(link.href)
                 }}
-                className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="rounded-md px-3 py-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
               </a>
@@ -128,7 +128,7 @@ export function Header() {
                         }
                         handleLinkClick(link.href)
                       }}
-                      className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                      className="rounded-md px-3 py-2.5 text-sm font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                     >
                       {link.label}
                     </a>
