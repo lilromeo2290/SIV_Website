@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'siv-crm',
       script: 'server.js',
-      cwd: '/home/sivcrm/app/.next/standalone',
+      cwd: '/home/sivcrm/.next/standalone',
       instances: 1,
       exec_mode: 'fork',
       env: {
