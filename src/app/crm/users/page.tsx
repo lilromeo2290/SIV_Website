@@ -371,9 +371,17 @@ export default function UsersPage() {
                       </TableCell>
                       <TableCell>
                         {user.department ? (
-                          <div className="flex items-center gap-1.5 text-sm text-slate-700">
-                            <Building className="h-3.5 w-3.5 text-slate-400" />
-                            {user.department}
+                          <div className="flex flex-wrap gap-1">
+                            {user.department.split(',').map((d, i) => (
+                              <Badge
+                                key={i}
+                                className="bg-slate-100 text-slate-700"
+                                variant="secondary"
+                              >
+                                <Building className="mr-1 h-3 w-3" />
+                                {d.trim()}
+                              </Badge>
+                            ))}
                           </div>
                         ) : (
                           <span className="text-sm text-slate-400">—</span>

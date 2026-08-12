@@ -54,13 +54,13 @@ function EditUserContent() {
   const [saving, setSaving] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [selectedDepts, setSelectedDepts] = useState<string[]>([]);
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
     password: '',
     confirmPassword: '',
-    department: '',
     status: 'active',
   });
   const [error, setError] = useState('');
@@ -72,6 +72,14 @@ function EditUserContent() {
       prev.includes(roleValue)
         ? prev.filter((r) => r !== roleValue)
         : [...prev, roleValue]
+    );
+  };
+
+  const toggleDept = (dept: string) => {
+    setSelectedDepts((prev) =>
+      prev.includes(dept)
+        ? prev.filter((d) => d !== dept)
+        : [...prev, dept]
     );
   };
 
@@ -92,13 +100,17 @@ function EditUserContent() {
             phone: data.user.phone || '',
             password: '',
             confirmPassword: '',
-            department: data.user.department || '',
             status: data.user.status,
           });
           // Parse comma-separated roles
           const roleStr = data.user.role || '';
           setSelectedRoles(
             roleStr.split(',').map((r: string) => r.trim()).filter(Boolean)
+          );
+          // Parse comma-separated departments
+          const deptStr = data.user.department || '';
+          setSelectedDepts(
+            deptStr.split(',').map((d: string) => d.trim()).filter(Boolean)
           );
           setOriginalData(data.user);
         }
@@ -141,7 +153,7 @@ function EditUserContent() {
         email: form.email,
         phone: form.phone,
         role: selectedRoles.join(','),
-        department: form.department,
+        department: selectedDepts.join(','),
         status: form.status,
       };
       if (form.password) {
@@ -305,20 +317,36 @@ function EditUserContent() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="department">Department</Label>
-                    <div className="relative">
-                      <Building className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                      <select
-                        id="department"
-                        value={form.department}
-                        onChange={(e) => setForm({ ...form, department: e.target.value })}
-                        className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm"
-                      >
-                        <option value="">Select department</option>
-                        {departments.map((d) => (
-                          <option key={d} value={d}>{d}</option>
-                        ))}
-                      </select>
+                    <Label>Departments</Label>
+                    <div className="grid grid-cols-2 gap-2 rounded-lg border border-slate-200 p-3">
+                      {departments.map((d) => {
+                        const isChecked = selectedDepts.includes(d);
+                        return (
+                          <label
+                            key={d}
+                            className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-slate-50"
+                          >
+                            <div
+                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+                                isChecked
+                                  ? 'border-blue-600 bg-blue-600'
+                                  : 'border-slate-300 bg-white'
+                              }`}
+                            >
+                              {isChecked && <Check className="h-2.5 w-2.5 text-white" />}
+                            </div>
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => toggleDept(d)}
+                              className="sr-only"
+                            />
+                            <span className={isChecked ? 'font-medium text-slate-800' : 'text-slate-600'}>
+                              {d}
+                            </span>
+                          </label>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
