@@ -42,24 +42,26 @@ export function Header() {
               e.preventDefault()
               handleLinkClick('#home')
             }}
-            className="flex items-center gap-2"
+            className="flex flex-col items-start"
           >
-            <Image
-              src="/logo.png"
-              alt="SIV Engineering & Diagnostics Services LTD"
-              width={220}
-              height={56}
-              className="h-14 w-auto object-contain"
-              priority
-            />
-            <Image
-              src="/logo2.png"
-              alt="SIV Engineering & Diagnostics Services LTD"
-              width={220}
-              height={56}
-              className="h-14 w-auto object-contain"
-            />
-            <span className="hidden lg:inline-flex border-l border-muted-foreground/30 pl-3 text-sm font-semibold italic tracking-wide text-primary">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="SIV Engineering & Diagnostics Services LTD"
+                width={220}
+                height={56}
+                className="h-14 w-auto object-contain"
+                priority
+              />
+              <Image
+                src="/logo2.png"
+                alt="SIV Engineering & Diagnostics Services LTD"
+                width={220}
+                height={56}
+                className="h-14 w-auto object-contain"
+              />
+            </div>
+            <span className="hidden lg:block text-sm font-semibold italic tracking-wide text-primary">
               Engineering Excellence, Diagnostic Precision
             </span>
           </a>
