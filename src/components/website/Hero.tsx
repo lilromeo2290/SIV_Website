@@ -34,15 +34,10 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+        <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
           Expert Auto Repair &{' '}
           <span className="text-amber-400">Maintenance Services</span>
         </h1>
-
-        {/* Tagline */}
-        <p className="mb-6 text-xl font-semibold italic tracking-wide text-amber-300/90 sm:text-2xl">
-          Engineering Excellence, Diagnostic Precision
-        </p>
 
         {/* Subheadline */}
         <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">

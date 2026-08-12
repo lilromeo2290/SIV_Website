@@ -42,7 +42,7 @@ export function Header() {
               e.preventDefault()
               handleLinkClick('#home')
             }}
-            className="flex items-center gap-1"
+            className="flex items-center gap-2"
           >
             <Image
               src="/logo.png"
@@ -59,6 +59,9 @@ export function Header() {
               height={56}
               className="h-14 w-auto object-contain"
             />
+            <span className="hidden lg:inline-flex border-l border-muted-foreground/30 pl-3 text-sm font-semibold italic tracking-wide text-primary">
+              Engineering Excellence, Diagnostic Precision
+            </span>
           </a>
 
           {/* Desktop Nav */}
