@@ -60,7 +60,12 @@ const roleColors: Record<string, string> = {
   'Customer Service': 'bg-green-100 text-green-800',
   Finance: 'bg-purple-100 text-purple-800',
   Marketing: 'bg-pink-100 text-pink-800',
+  Staff: 'bg-slate-100 text-slate-800',
   staff: 'bg-slate-100 text-slate-800',
+};
+
+const getRoleColor = (roleName: string) => {
+  return roleColors[roleName] || roleColors[roleName.trim()] || 'bg-slate-100 text-slate-700';
 };
 
 const statusColors: Record<string, string> = {
@@ -135,7 +140,7 @@ export default function UsersPage() {
     { role: 'Marketing', color: 'text-pink-600', bg: 'bg-pink-50' },
   ].map((r) => ({
     ...r,
-    count: users.filter((u) => u.role === r.role).length,
+    count: users.filter((u) => u.role.includes(r.role)).length,
   }));
 
   const activeCount = users.filter((u) => u.status === 'active').length;
@@ -352,12 +357,17 @@ export default function UsersPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge
-                          className={roleColors[user.role] || 'bg-slate-100 text-slate-700'}
-                          variant="secondary"
-                        >
-                          {user.role}
-                        </Badge>
+                        <div className="flex flex-wrap gap-1">
+                          {user.role.split(',').map((r, i) => (
+                            <Badge
+                              key={i}
+                              className={getRoleColor(r)}
+                              variant="secondary"
+                            >
+                              {r.trim()}
+                            </Badge>
+                          ))}
+                        </div>
                       </TableCell>
                       <TableCell>
                         {user.department ? (

@@ -16,6 +16,7 @@ import {
   User,
   Trash2,
   Calendar,
+  Check,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +31,7 @@ const roles = [
   { value: 'Customer Service', label: 'Customer Service', color: 'bg-green-100 text-green-800', desc: 'Client interaction and support' },
   { value: 'Finance', label: 'Finance', color: 'bg-purple-100 text-purple-800', desc: 'Quotations, invoices, and billing' },
   { value: 'Marketing', label: 'Marketing', color: 'bg-pink-100 text-pink-800', desc: 'Campaigns and client communication' },
-  { value: 'staff', label: 'Staff', color: 'bg-slate-100 text-slate-700', desc: 'Basic access' },
+  { value: 'Staff', label: 'Staff', color: 'bg-slate-100 text-slate-700', desc: 'Basic access' },
 ];
 
 const departments = [
@@ -52,7 +53,7 @@ function EditUserContent() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('staff');
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -65,6 +66,14 @@ function EditUserContent() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [originalData, setOriginalData] = useState<Record<string, unknown> | null>(null);
+
+  const toggleRole = (roleValue: string) => {
+    setSelectedRoles((prev) =>
+      prev.includes(roleValue)
+        ? prev.filter((r) => r !== roleValue)
+        : [...prev, roleValue]
+    );
+  };
 
   useEffect(() => {
     if (!userId) {
@@ -86,7 +95,11 @@ function EditUserContent() {
             department: data.user.department || '',
             status: data.user.status,
           });
-          setSelectedRole(data.user.role);
+          // Parse comma-separated roles
+          const roleStr = data.user.role || '';
+          setSelectedRoles(
+            roleStr.split(',').map((r: string) => r.trim()).filter(Boolean)
+          );
           setOriginalData(data.user);
         }
       } catch (err) {
@@ -108,6 +121,10 @@ function EditUserContent() {
       setError('Name and email are required');
       return;
     }
+    if (selectedRoles.length === 0) {
+      setError('Please assign at least one role');
+      return;
+    }
     if (form.password && form.password !== form.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -123,7 +140,7 @@ function EditUserContent() {
         name: form.name,
         email: form.email,
         phone: form.phone,
-        role: selectedRole,
+        role: selectedRoles.join(','),
         department: form.department,
         status: form.status,
       };
@@ -185,7 +202,7 @@ function EditUserContent() {
               Edit User
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              Update user information, role, and permissions
+              Update user information, roles, and permissions
             </p>
           </div>
         </div>
@@ -370,29 +387,57 @@ function EditUserContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Shield className="h-5 w-5 text-blue-600" />
-                Assign Role
+                Assign Roles
               </CardTitle>
+              <p className="text-xs text-slate-500">
+                Select one or more roles for this user
+              </p>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
-              {roles.map((role) => (
-                <button
-                  key={role.value}
-                  type="button"
-                  onClick={() => setSelectedRole(role.value)}
-                  className={`flex flex-col items-start rounded-lg border p-3 text-left transition-colors ${
-                    selectedRole === role.value
-                      ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500'
-                      : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <Badge className={role.color} variant="secondary">
-                      {role.label}
-                    </Badge>
-                  </div>
-                  <p className="mt-1 text-xs text-slate-500">{role.desc}</p>
-                </button>
-              ))}
+              {selectedRoles.length > 0 && (
+                <div className="mb-2 flex flex-wrap gap-1.5 rounded-lg bg-blue-50 p-2">
+                  <span className="text-xs font-medium text-blue-700">Selected ({selectedRoles.length}):</span>
+                  {selectedRoles.map((r) => {
+                    const roleInfo = roles.find((role) => role.value === r);
+                    return (
+                      <Badge key={r} className={roleInfo?.color || ''} variant="secondary">
+                        {roleInfo?.label || r}
+                      </Badge>
+                    );
+                  })}
+                </div>
+              )}
+              {roles.map((role) => {
+                const isSelected = selectedRoles.includes(role.value);
+                return (
+                  <button
+                    key={role.value}
+                    type="button"
+                    onClick={() => toggleRole(role.value)}
+                    className={`flex items-start gap-3 rounded-lg border p-3 text-left transition-all ${
+                      isSelected
+                        ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500'
+                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+                        isSelected
+                          ? 'border-blue-600 bg-blue-600'
+                          : 'border-slate-300 bg-white'
+                      }`}
+                    >
+                      {isSelected && <Check className="h-3 w-3 text-white" />}
+                    </div>
+                    <div className="flex-1">
+                      <Badge className={role.color} variant="secondary">
+                        {role.label}
+                      </Badge>
+                      <p className="mt-1 text-xs text-slate-500">{role.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
             </CardContent>
           </Card>
 
