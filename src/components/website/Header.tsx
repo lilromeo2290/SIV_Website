@@ -34,7 +34,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <a
             href="#home"
@@ -50,7 +50,7 @@ export function Header() {
                 alt="SIV Engineering & Diagnostics Services LTD"
                 width={220}
                 height={56}
-                className="h-14 w-auto object-contain"
+                className="h-12 w-auto object-contain"
                 priority
               />
               <Image
@@ -58,12 +58,12 @@ export function Header() {
                 alt="SIV Engineering & Diagnostics Services LTD"
                 width={220}
                 height={56}
-                className="h-14 w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
             </div>
-            <span className="mt-[-4px] block text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
+            <p className="text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
               Engineering Excellence, Diagnostic Precision
-            </span>
+            </p>
           </a>
 
           {/* Desktop Nav */}
