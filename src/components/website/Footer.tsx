@@ -147,7 +147,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-amber-400 transition-colors hover:text-amber-300"
           >
-            Clipe233 Engineers
+            Clipe Consult
           </a>
         </p>
       </div>
