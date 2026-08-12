@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, Phone, Mail } from 'lucide-react'
+import { Menu, Phone, Mail, MessageCircle } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import {
@@ -38,20 +38,29 @@ export function Header() {
     <div className="sticky top-0 z-40 w-full">
       {/* Top Bar - Contact Info */}
       <div className="bg-slate-900 text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-end gap-6 px-4 py-1.5 text-xs md:px-8 md:text-sm">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-x-6 gap-y-1 px-4 py-1.5 text-xs md:px-8 md:text-sm">
           <a
-            href="tel:+233206716522"
+            href="https://wa.me/233206716522"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 transition-colors hover:text-green-400"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+            <span className="font-medium">WhatsApp: 233 20 671 6522</span>
+          </a>
+          <a
+            href="tel:+233242266935"
             className="flex items-center gap-1.5 transition-colors hover:text-amber-400"
           >
             <Phone className="h-3.5 w-3.5" />
-            <span className="font-medium">+233 20 671 6522</span>
+            <span className="font-medium">Phone: 233 242 266 935 / 233 20 671 6522</span>
           </a>
           <a
             href="mailto:info@sivgh.com"
             className="flex items-center gap-1.5 transition-colors hover:text-amber-400"
           >
             <Mail className="h-3.5 w-3.5" />
-            <span className="font-medium">info@sivgh.com</span>
+            <span className="font-medium hidden sm:inline">info@sivgh.com</span>
           </a>
         </div>
       </div>
