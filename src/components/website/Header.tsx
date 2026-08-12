@@ -17,8 +17,8 @@ const navLinks = [
   { label: 'About Us', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'CRM', href: '/crm' },
   { label: 'Contact', href: '#contact' },
+  { label: 'CRM', href: '/crm' },
 ]
 
 export function Header() {
