@@ -61,7 +61,7 @@ export function Header() {
                 className="h-14 w-auto object-contain"
               />
             </div>
-            <span className="mt-[-4px] hidden lg:block text-sm font-semibold italic tracking-wide text-primary">
+            <span className="mt-[-4px] block text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
               Engineering Excellence, Diagnostic Precision
             </span>
           </a>
