@@ -38,7 +38,7 @@ export function Header() {
     <div className="sticky top-0 z-40 w-full">
       {/* Top Bar - Contact Info */}
       <div className="bg-slate-900 text-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-x-6 gap-y-1 px-4 py-1.5 text-xs md:px-8 md:text-sm">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-x-4 gap-y-1 px-3 py-1 text-[10px] sm:text-xs md:px-8 md:text-sm">
           <a
             href="https://wa.me/233206716522"
             target="_blank"
@@ -83,7 +83,7 @@ export function Header() {
                 alt="SIV Engineering & Diagnostics Services LTD"
                 width={260}
                 height={68}
-                className="h-14 w-auto object-contain drop-shadow-sm"
+                className="h-10 sm:h-14 w-auto object-contain drop-shadow-sm"
                 priority
               />
               <Image
@@ -91,10 +91,10 @@ export function Header() {
                 alt="SIV Engineering & Diagnostics Services LTD"
                 width={260}
                 height={68}
-                className="h-14 w-auto object-contain drop-shadow-sm"
+                className="hidden sm:block h-14 w-auto object-contain drop-shadow-sm"
               />
             </div>
-            <p className="-mt-3 ml-28 sm:ml-44 text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
+            <p className="-mt-2 sm:-mt-3 ml-16 sm:ml-44 text-[10px] sm:text-xs font-semibold italic tracking-wide text-primary sm:text-sm">
               Engineering Excellence, Diagnostic Precision
             </p>
           </a>
@@ -130,12 +130,12 @@ export function Header() {
             {/* Mobile Menu */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon">
-                  <Menu className="size-5" />
+                <Button variant="ghost" size="icon" className="h-10 w-10 shrink-0">
+                  <Menu className="size-6" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-72">
+              <SheetContent side="right" className="w-72 z-[60]">
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
                     <Image
