@@ -157,7 +157,7 @@ export default function CRMLayout({
       }
     };
     getUserName();
-  });
+  }, []);
 
   const handleLogout = async () => {
     try {
