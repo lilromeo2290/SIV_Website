@@ -40,6 +40,7 @@ export default function AddInvoicePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [clients, setClients] = useState<Client[]>([]);
+  const [fetchingClients, setFetchingClients] = useState(true);
   const [error, setError] = useState('');
 
   const [clientId, setClientId] = useState('');
@@ -53,12 +54,19 @@ export default function AddInvoicePage() {
   ]);
 
   useEffect(() => {
-    fetch('/crm/api/clients')
-      .then((r) => r.json())
-      .then((data) => {
+    async function fetchClients() {
+      try {
+        const res = await fetch('/crm/api/clients');
+        if (!res.ok) throw new Error('Failed to fetch clients');
+        const data = await res.json();
         if (Array.isArray(data)) setClients(data);
-      })
-      .catch(() => {});
+      } catch (err) {
+        console.error('Failed to load clients:', err);
+      } finally {
+        setFetchingClients(false);
+      }
+    }
+    fetchClients();
   }, []);
 
   useEffect(() => {
@@ -228,15 +236,21 @@ export default function AddInvoicePage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Select Client</p>
                 <Select value={clientId} onValueChange={setClientId}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose a client..." />
+                    <SelectValue placeholder={fetchingClients ? 'Loading clients...' : 'Choose a client...'} />
                   </SelectTrigger>
                   <SelectContent>
-                    {clients.map((client) => (
-                      <SelectItem key={client.id} value={client.id}>
-                        {client.fullName}
-                        {client.companyName ? ` (${client.companyName})` : ''}
-                      </SelectItem>
-                    ))}
+                    {fetchingClients ? (
+                      <SelectItem value="_loading" disabled>Loading...</SelectItem>
+                    ) : clients.length === 0 ? (
+                      <SelectItem value="_empty" disabled>No clients found — add clients first</SelectItem>
+                    ) : (
+                      clients.map((client) => (
+                        <SelectItem key={client.id} value={client.id}>
+                          {client.fullName}
+                          {client.companyName ? ` (${client.companyName})` : ''}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
               </div>
