@@ -4,7 +4,7 @@ import { jwtVerify } from 'jose';
 const JWT_SECRET = new TextEncoder().encode('siv-crm-secret-key-2024-secure');
 
 // Routes that don't require authentication
-const publicPaths = ['/crm/login', '/crm/api/auth'];
+const publicPaths = ['/crm/login', '/crm/api/auth', '/crm/api/clients'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
