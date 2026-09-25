@@ -167,7 +167,7 @@ export function Header() {
                     >
                       {link.label}
                     </a>
-                  ))>
+                  ))}
                   <div className="pt-4">
                     <Button
                       className="w-full"
