@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import Link from 'next/link';
-import { Receipt, DollarSign, Clock, CheckCircle, TrendingUp } from 'lucide-react';
+import { Receipt, DollarSign, Clock, CheckCircle, TrendingUp, Eye, Printer } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -161,12 +161,13 @@ export default async function InvoicesPage() {
                   <TableHead className="w-32 text-right">Balance</TableHead>
                   <TableHead className="w-28">Status</TableHead>
                   <TableHead className="w-36">Payment Date</TableHead>
+                  <TableHead className="w-28 text-center">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {invoices.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="h-24 text-center text-slate-400">
+                    <TableCell colSpan={8} className="h-24 text-center text-slate-400">
                       No invoices created yet.
                     </TableCell>
                   </TableRow>
@@ -206,6 +207,28 @@ export default async function InvoicesPage() {
                         </TableCell>
                         <TableCell className="text-sm text-slate-500">
                           {invoice.paymentDate ? formatDate(invoice.paymentDate) : '—'}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <div className="flex items-center justify-center gap-1">
+                            <Link
+                              href={`/crm/invoices/${invoice.id}`}
+                              className="inline-flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                              title="View / Print"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Link>
+                            <Link
+                              href={`/crm/invoices/${invoice.id}`}
+                              className="inline-flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                              title="Print"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.open(`/crm/invoices/${invoice.id}`, '_blank');
+                              }}
+                            >
+                              <Printer className="h-4 w-4" />
+                            </Link>
+                          </div>
                         </TableCell>
                       </TableRow>
                     );

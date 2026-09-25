@@ -103,7 +103,8 @@ export default function AddInvoicePage() {
         }),
       });
       if (res.ok) {
-        window.location.href = '/crm/invoices';
+        const data = await res.json();
+        window.location.href = `/crm/invoices/${data.id}`;
       } else {
         const data = await res.json();
         setError(data.error || 'Failed to create invoice');
