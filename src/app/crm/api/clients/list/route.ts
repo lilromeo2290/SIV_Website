@@ -7,7 +7,10 @@ export async function GET() {
       select: {
         id: true,
         fullName: true,
+        companyName: true,
         phone: true,
+        email: true,
+        physicalAddress: true,
       },
       orderBy: { fullName: 'asc' },
     })

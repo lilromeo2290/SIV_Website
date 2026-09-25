@@ -1,6 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
+export async function GET() {
+  try {
+    const clients = await db.client.findMany({
+      select: {
+        id: true,
+        fullName: true,
+        companyName: true,
+        phone: true,
+        email: true,
+        physicalAddress: true,
+      },
+      orderBy: { fullName: 'asc' },
+    });
+
+    return NextResponse.json(clients);
+  } catch (error) {
+    console.error('Failed to fetch clients:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch clients' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
