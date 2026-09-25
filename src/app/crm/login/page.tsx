@@ -43,7 +43,8 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        router.push('/crm');
+        // Use full page navigation to avoid stale Server Action cache issues
+        window.location.href = '/crm';
       } else {
         setError(data.error || 'Login failed');
       }
