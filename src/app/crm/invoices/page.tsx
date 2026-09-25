@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Link from 'next/link';
 import { Receipt, DollarSign, Clock, CheckCircle, TrendingUp } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -67,7 +68,7 @@ export default async function InvoicesPage() {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'ZAR',
+      currency: 'GHS',
     }).format(amount);
   };
 
@@ -83,10 +84,12 @@ export default async function InvoicesPage() {
             Track and manage client invoices and payments
           </p>
         </div>
-        <Button className="gap-2">
-          <Receipt className="h-4 w-4" />
-          New Invoice
-        </Button>
+        <Link href="/crm/invoices/add">
+          <Button className="gap-2">
+            <Receipt className="h-4 w-4" />
+            New Invoice
+          </Button>
+        </Link>
       </div>
 
       {/* Stats */}

@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Link from 'next/link';
 import { Calculator, FileText, CheckCircle, XCircle, DollarSign } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -66,7 +67,7 @@ export default async function QuotationsPage() {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'ZAR',
+      currency: 'GHS',
     }).format(amount);
   };
 
@@ -82,10 +83,12 @@ export default async function QuotationsPage() {
             Create, track, and manage client quotations
           </p>
         </div>
-        <Button className="gap-2">
-          <Calculator className="h-4 w-4" />
-          New Quotation
-        </Button>
+        <Link href="/crm/quotations/add">
+          <Button className="gap-2">
+            <Calculator className="h-4 w-4" />
+            New Quotation
+          </Button>
+        </Link>
       </div>
 
       {/* Stats */}
