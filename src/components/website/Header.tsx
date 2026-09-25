@@ -19,6 +19,7 @@ const navLinks = [
   { label: 'Gallery', href: '#gallery' },
   { label: 'Contact', href: '#contact' },
   { label: 'CRM PORTAL', href: '/crm' },
+  { label: 'EMAIL', href: 'https://153.75.247.4:2003/sessq117IFgAPR7wyNws/mail/?_task=logout&_token=Jrunk2wCldb9r8moqJJZAUhechF5p8y5', external: true },
 ]
 
 export function Header() {
@@ -106,11 +107,13 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => {
+                  if (link.external) return
                   if (link.href.startsWith('#')) {
                     e.preventDefault()
                   }
                   handleLinkClick(link.href)
                 }}
+                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="rounded-md px-3 py-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -153,16 +156,18 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={(e) => {
+                        if (link.external) return
                         if (link.href.startsWith('#')) {
                           e.preventDefault()
                         }
                         handleLinkClick(link.href)
                       }}
+                      {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       className="rounded-md px-3 py-2.5 text-sm font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                     >
                       {link.label}
                     </a>
-                  ))}
+                  ))>
                   <div className="pt-4">
                     <Button
                       className="w-full"
